@@ -79,7 +79,7 @@ class RNCloverBridgeModule extends ReactContextBaseJavaModule {
                 .put("isFlex", isFlex())
                 .put("isMini", isMini())
                 .put("getSpaVersion", getSpaVersion())
-                .build();
+                .build(mContext);
     }
 
     @ReactMethod
