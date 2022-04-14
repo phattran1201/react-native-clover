@@ -39,7 +39,6 @@ public class Constants {
 
         public Map<String, Object> build(Context context) {
             // Expose Clover Hardware Serial Number
-            constants.put(HARDWARE_SERIAL_NUMBER, Build.SERIAL);
             String serial = new MerchantDevicesV2Connector(context).getSerial();
             constants.put(HARDWARE_SERIAL_NUMBER, serial);
 
