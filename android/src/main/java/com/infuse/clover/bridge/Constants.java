@@ -1,9 +1,11 @@
 package com.infuse.clover.bridge;
 
+import android.content.Context;
 import android.os.Build;
 
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.printer.job.PrintJob;
+import com.clover.sdk.v3.merchant.MerchantDevicesV2Connector;
 import com.clover.sdk.v3.order.VoidReason;
 import com.clover.sdk.v3.payments.DataEntryLocation;
 import com.clover.sdk.v3.payments.TipMode;
@@ -35,9 +37,10 @@ public class Constants {
             return this;
         }
 
-        public Map<String, Object> build() {
+        public Map<String, Object> build(Context context) {
             // Expose Clover Hardware Serial Number
-            constants.put(HARDWARE_SERIAL_NUMBER, Build.SERIAL);
+            String serial = new MerchantDevicesV2Connector(context).getSerial();
+            constants.put(HARDWARE_SERIAL_NUMBER, serial);
 
             // Build Event Names
             WritableMap bridgeEvents = Arguments.createMap();
