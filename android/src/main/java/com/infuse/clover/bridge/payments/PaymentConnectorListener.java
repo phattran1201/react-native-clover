@@ -27,7 +27,7 @@ import com.clover.sdk.v3.remotepay.VoidPaymentResponse;
 public class PaymentConnectorListener implements IPaymentConnectorListener {
 
     private final String TAG = "RNCloverBridge";
-    private BridgePaymentConnectorListener mBridgePaymentConnectorListener;
+    private final BridgePaymentConnectorListener mBridgePaymentConnectorListener;
 
     PaymentConnectorListener(BridgePaymentConnectorListener bridgePaymentConnectorListener) {
         mBridgePaymentConnectorListener = bridgePaymentConnectorListener;

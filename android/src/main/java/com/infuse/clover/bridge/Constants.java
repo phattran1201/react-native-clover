@@ -3,6 +3,7 @@ package com.infuse.clover.bridge;
 import android.content.Context;
 import android.os.Build;
 
+import com.clover.sdk.util.Platform2;
 import com.clover.sdk.v1.Intents;
 import com.clover.sdk.v1.printer.job.PrintJob;
 import com.clover.sdk.v3.merchant.MerchantDevicesV2Connector;
@@ -26,7 +27,7 @@ public class Constants {
     static final String EVENT_BARCODE_SCANNER = "EVENT_BARCODE_SCANNER";
 
     static public class Builder {
-        private Map<String, Object> constants;
+        private final Map<String, Object> constants;
 
         public Builder() {
             constants = new HashMap<>();
@@ -39,7 +40,7 @@ public class Constants {
 
         public Map<String, Object> build(Context context) {
             // Expose Clover Hardware Serial Number
-            String serial = new MerchantDevicesV2Connector(context).getSerial();
+            String serial = Platform2.isClover() ? new MerchantDevicesV2Connector(context).getSerial() : "";
             constants.put(HARDWARE_SERIAL_NUMBER, serial);
 
             // Build Event Names

@@ -52,12 +52,32 @@ interface Transaction {
   createdTime: String;
 }
 
+interface CardTransaction {
+  authCode: string;
+  cardHolderName: string;
+  first6: string;
+  last4: string;
+  referenceId: string;
+  transactionNo: string;
+  cardType: string;
+  type: string;
+  entryType: string;
+  currency: string;
+  extra: {
+    applicationLabel: string;
+    authorizingNetworkName: string;
+    cvmResult: string;
+    applicationIdentifier: string;
+  }
+}
+
 interface Payment extends Transaction {
   externalPaymentId: String;
   offline: Boolean;
   tipAmount: Number;
   order: ObjectRef;
   tender: Tender;
+  cardTransaction: CardTransaction;
 }
 
 interface Refund extends Transaction {
@@ -224,10 +244,10 @@ declare const _default: {
    * @returns {Promise} A promise that resolves to a MerchantResult.
    */
   getMerchant: () => Promise<MerchantResult>;
-  enableCustomerMode: () => Void;
-  disableCustomerMode: () => Void;
+  enableCustomerMode: () => void;
+  disableCustomerMode: () => void;
   print: (imagePath: String) => Promise<Object>;
-  printPayment: (option: PrintPaymentOption) => Void;
+  printPayment: (option: PrintPaymentOption) => void;
   /**
    * Obtains required Android runtime permissions, only needed if targeting API > 25.
    * @returns {Promise<Result>} A promise that resolves to a Result.
@@ -236,11 +256,11 @@ declare const _default: {
   /**
    * Registers the Clover barcode scanner BroadcastReceiver and registers the LifecycleEventListener for cleanup
    */
-  registerScanner: () => Void;
+  registerScanner: () => void;
   /**
    * Unregisters the Barcode Event LifecycleEventListener
    */
-  unregisterScanner: () => Void;
+  unregisterScanner: () => void;
 
   // Payment Methods ///////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -249,7 +269,7 @@ declare const _default: {
    * called as soon as possible.
    * @param {String} raid Remote Application Id. Obtained from Clover App dashboard.
    */
-  initializePaymentConnector: (raid: String) => Void;
+  initializePaymentConnector: (raid: String) => void;
   sale: (option: SaleOption) => Promise<SaleResult>;
   refundPayment: (option: RefundPaymentOption) => Promise<RefundPaymentResult>;
   manualRefund: (option: ManualRefundOption) => Promise<ManualRefundResult>;
@@ -258,7 +278,7 @@ declare const _default: {
   /**
    * Forces the SPA to close
    */
-  cancelSPA: () => Void;
+  cancelSPA: () => void;
 
   // Constant Methods //////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////

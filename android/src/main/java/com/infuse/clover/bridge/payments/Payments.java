@@ -2,11 +2,14 @@ package com.infuse.clover.bridge.payments;
 
 import com.clover.sdk.v3.base.Reference;
 import com.clover.sdk.v3.base.Tender;
+import com.clover.sdk.v3.payments.CardTransaction;
 import com.clover.sdk.v3.payments.Credit;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.payments.Refund;
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableMap;
+
+import java.util.Map;
 
 class Payments {
     // Bridge constants for Clover per-transaction settings.
@@ -55,6 +58,39 @@ class Payments {
 
         // Add in Order Ref
         map.putMap("order", buildReference(payment.getOrder()));
+
+        WritableMap cardTransactionMap = Arguments.createMap();
+        CardTransaction cardTransaction = payment.getCardTransaction();
+        cardTransactionMap.putString("authCode", cardTransaction.getAuthCode());
+        cardTransactionMap.putString("last4", cardTransaction.getLast4());
+        cardTransactionMap.putString("first6", cardTransaction.getFirst6());
+        cardTransactionMap.putString("cardHolderName", cardTransaction.getCardholderName());
+        cardTransactionMap.putString("referenceId", cardTransaction.getReferenceId());
+        cardTransactionMap.putString("transactionNo", cardTransaction.getTransactionNo());
+        cardTransactionMap.putString("cardType", cardTransaction.getCardType().toString());
+        cardTransactionMap.putString("type", cardTransaction.getType().toString());
+        cardTransactionMap.putString("entryType", cardTransaction.getEntryType().toString());
+        cardTransactionMap.putString("currency", cardTransaction.getCurrency());
+
+        if (cardTransaction.getExtra() != null) {
+            WritableMap transactionExtraMap = Arguments.createMap();
+            Map<String, String> extraMap = cardTransaction.getExtra();
+            if (extraMap.containsKey("applicationLabel")) {
+                transactionExtraMap.putString("applicationLabel", extraMap.get("applicationLabel"));
+            }
+            if (extraMap.containsKey("authorizingNetworkName")) {
+                transactionExtraMap.putString("authorizingNetworkName", extraMap.get("authorizingNetworkName"));
+            }
+            if (extraMap.containsKey("cvmResult")) {
+                transactionExtraMap.putString("cvmResult", extraMap.get("cvmResult"));
+            }
+            if (extraMap.containsKey("applicationIdentifier")) {
+                transactionExtraMap.putString("applicationIdentifier", extraMap.get("applicationIdentifier"));
+            }
+            cardTransactionMap.putMap("extra", transactionExtraMap);
+        }
+
+        map.putMap("cardTransaction", cardTransactionMap);
 
         return map;
     }
