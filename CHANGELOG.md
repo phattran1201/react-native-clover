@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.0.16](https://bitbucket.org/infuse-team/react-native-clover/compare/v0.0.16%0Dv0.0.15) - (2022-10-11)
+
+### Changed
+
+- Updated Payment `mapPayment` to include additional `cardTransaction` data.
+
+### Fixed
+
+- Fixed `HARDWARE_SERIAL_NUMBER` constant to only hit MerchantDevicesV2Connector if isClover. Makes it Emulator safe.
+
 ## [0.0.15](https://bitbucket.org/infuse-team/react-native-clover/compare/v0.0.15%0Dv0.0.14) - (2022-04-14)
 
 ### Changed
