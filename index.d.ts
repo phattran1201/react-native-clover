@@ -73,6 +73,7 @@ interface CardTransaction {
 
 interface Payment extends Transaction {
   externalPaymentId: String;
+  externalReferenceId: String;
   offline: Boolean;
   tipAmount: Number;
   order: ObjectRef;
@@ -146,6 +147,7 @@ interface SaleOption {
   amount: Number;
   externalPaymentId?: String;
   generateExternalPaymentId?: Boolean;
+  externalReferenceId?: String;
   cardEntryMethods?: Number;
   disableRestartTransactionOnFail?: Boolean;
   disableDuplicateChecking?: Boolean;

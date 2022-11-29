@@ -33,11 +33,13 @@ class Payments {
     static final String VOID_REASON = "voidReason";
     static final String EXTERNAL_PAYMENT_ID = "externalPaymentId";
     static final String GENERATE_EXTERNAL_PAYMENT_ID = "generateExternalPaymentId";
+    static final String EXTERNAL_REFERENCE_ID = "externalReferenceId";
 
     static WritableMap mapPayment(Payment payment) {
         WritableMap map = Arguments.createMap();
         map.putString("id", payment.getId());
         map.putString("externalPaymentId", payment.getExternalPaymentId());
+        map.putString("externalReferenceId", payment.getExternalReferenceId());
         map.putInt("amount", payment.getAmount().intValue());
         map.putString("createdTime", payment.getCreatedTime().toString());
 
