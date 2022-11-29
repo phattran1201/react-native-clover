@@ -155,6 +155,9 @@ public class BridgePaymentConnector {
                     ReadableArray tipSuggestions = options.getArray(Payments.TIP_SUGGESTIONS);
                     saleRequest.setTipSuggestions(buildTipSuggestions(tipSuggestions));
                 }
+                if (options.hasKey(Payments.EXTERNAL_REFERENCE_ID)) {
+                    saleRequest.setExternalReferenceId(options.getString(Payments.EXTERNAL_REFERENCE_ID));
+                }
 
                 paymentConnector.sale(saleRequest);
             }

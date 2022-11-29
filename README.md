@@ -76,6 +76,7 @@ Clover.initializePaymentConnector(String raid);
  *  
  * amount: int - Required
  * externalPaymentId: string - Required, unless generateExternalPaymentId is true
+ * externalReferenceId: string - optional, id that is passed to settlement file
  * printReceipt: bool - optional, auto print receipt without selection
  * generateExternalPaymentId: bool - optional, unless externalPaymentId is not provided, default false
  * cardEntryMethods: int - optional, see CARD_ENTRY_METHODS, defaults to MAG_STRIPE | ICC_CONTACT | NFC_CONTACTLESS

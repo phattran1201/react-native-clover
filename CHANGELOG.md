@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.0.17](https://bitbucket.org/infuse-team/react-native-clover/compare/v0.0.17%0Dv0.0.16) - (2022-11-28)
+
+### Changed
+
+- Add `externalReferenceId` field to saleRequest
+
 ## [0.0.16](https://bitbucket.org/infuse-team/react-native-clover/compare/v0.0.16%0Dv0.0.15) - (2022-10-11)
 
 ### Changed
