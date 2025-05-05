@@ -1,3 +1,8 @@
+import { useEffect } from 'react';
+import { NativeEventEmitter, NativeModules } from 'react-native';
+
+const { RNCloverBridge } = NativeModules;
+
 interface ObjectRef {
   id: String;
 }
@@ -12,7 +17,7 @@ interface TipSuggestion {
 }
 
 interface Result {
-  success: Boolean;
+  success: boolean;
 }
 
 interface Tender extends ObjectRef {
@@ -29,10 +34,42 @@ interface MerchantResult extends Result {
   merchant: Merchant;
 }
 
+interface OrderResult extends Result {
+  order: Order;
+}
+
+interface InventoryResult extends Result {
+  statusMessage?: String;
+  inventory: Inventory;
+}
+
+interface Inventory extends ObjectRef {
+  name: String;
+  quantity: Number;
+  price: Number;
+  sku: String;
+  barcode: String;
+  category: String;
+  taxRate: Number;
+  taxName: String;
+  taxable: boolean;
+}
+
 interface Merchant extends ObjectRef {
   name: String;
   email: String;
   location: MerchantLocation;
+}
+
+interface Order extends ObjectRef {
+  currency: String;
+  total: Number;
+  state: String;
+  testMode: String;
+  type: {
+    id: String;
+    label: String;
+  };
 }
 
 interface MerchantLocation {
@@ -52,33 +89,12 @@ interface Transaction {
   createdTime: String;
 }
 
-interface CardTransaction {
-  authCode: string;
-  cardHolderName: string;
-  first6: string;
-  last4: string;
-  referenceId: string;
-  transactionNo: string;
-  cardType: string;
-  type: string;
-  entryType: string;
-  currency: string;
-  extra: {
-    applicationLabel: string;
-    authorizingNetworkName: string;
-    cvmResult: string;
-    applicationIdentifier: string;
-  }
-}
-
 interface Payment extends Transaction {
   externalPaymentId: String;
-  externalReferenceId: String;
-  offline: Boolean;
+  offline: boolean;
   tipAmount: Number;
   order: ObjectRef;
   tender: Tender;
-  cardTransaction: CardTransaction;
 }
 
 interface Refund extends Transaction {
@@ -146,21 +162,20 @@ interface PrintJobFlag {
 interface SaleOption {
   amount: Number;
   externalPaymentId?: String;
-  generateExternalPaymentId?: Boolean;
-  externalReferenceId?: String;
+  generateExternalPaymentId?: boolean;
   cardEntryMethods?: Number;
-  disableRestartTransactionOnFail?: Boolean;
-  disableDuplicateChecking?: Boolean;
-  disablePrinting?: Boolean;
-  disableReceiptSelection?: Boolean;
+  disableRestartTransactionOnFail?: boolean;
+  disableDuplicateChecking?: boolean;
+  disablePrinting?: boolean;
+  disableReceiptSelection?: boolean;
   signatureEntryLocation?: String;
   signatureThreshold?: Number;
-  autoAcceptSignature?: Boolean;
+  autoAcceptSignature?: boolean;
   tipAmount?: Number;
   tippableAmount?: Number;
   tipMode?: String;
   tipSuggestions?: Array<TipSuggestion>;
-  printReceipt?: Boolean;
+  printReceipt?: boolean;
 }
 
 interface SaleResult extends TransactionResult {
@@ -171,8 +186,8 @@ interface RefundPaymentOption {
   paymentId: String;
   orderId: String;
   amount?: Number;
-  setFullRefund?: Boolean;
-  printReceipt?: Boolean;
+  setFullRefund?: boolean;
+  printReceipt?: boolean;
 }
 
 interface RefundPaymentResult extends TransactionResult {
@@ -182,10 +197,10 @@ interface RefundPaymentResult extends TransactionResult {
 interface ManualRefundOption {
   amount: Number;
   externalPaymentId?: String;
-  generateExternalPaymentId?: Boolean;
+  generateExternalPaymentId?: boolean;
   cardEntryMethods?: Number;
-  disableRestartTransactionOnFail?: Boolean;
-  printReceipt?: Boolean;
+  disableRestartTransactionOnFail?: boolean;
+  printReceipt?: boolean;
 }
 
 interface ManualRefundResult extends TransactionResult {
@@ -196,7 +211,7 @@ interface VoidPaymentOption {
   paymentId: String;
   orderId: String;
   voidReason: String;
-  printReceipt?: Boolean;
+  printReceipt?: boolean;
 }
 
 interface VoidPaymentResult extends TransactionResult {
@@ -219,51 +234,10 @@ interface PrintPaymentOption {
   flags?: Array<Number>;
 }
 
-interface Inventory extends ObjectRef {
-  name: String;
-  quantity: Number;
-  price: Number;
-  sku: String;
-  barcode: String;
-  category: String;
-  taxRate: Number;
-  taxName: String;
-  taxable: Boolean;
-}
-
-interface Order extends ObjectRef {
-  currency: String;
-  total: Number;
-  state: String;
-  testMode: String;
-  type: {
-    id: String;
-    label: String;
-  };
-}
-
-interface OrderResult extends Result {
-  order: Order;
-}
-
-interface InventoryResult extends Result {
-  statusMessage?: String;
-  inventory: Inventory;
-}
-
-// // Hooks /////////////////////////////////////////////////////////////////////////////////////////////
-// //////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * Manages Clover barcode scanner and runs callback if enabled.
- * @param {Function} callback Function called on scan if enabled is true.
- * @param {Boolean} [enabled = false] Whether or not to register the callback listener.
- */
-export const useScanner: (callback: (barcode: String) => void, enabled?: Boolean) => void;
-
 /**
  * Another blah test
  */
-declare const Clover: {
+interface Clover {
   // General Methods ///////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////
   /**
@@ -272,7 +246,7 @@ declare const Clover: {
    * @param {Number} [timeout = 10000] Timeout in milliseconds.
    * @returns {Promise} A promise that resolves to an AuthenticationResult.
    */
-  authenticate: (forceValidateToken?: Boolean, timeout?: Number) => Promise<AuthenticationResult>;
+  authenticate: (forceValidateToken?: boolean, timeout?: Number) => Promise<AuthenticationResult>;
   /**
    * Obtains Merchant Info from the Clover service.
    * @returns {Promise} A promise that resolves to a MerchantResult.
@@ -282,7 +256,7 @@ declare const Clover: {
   getInventoryItems: () => Promise<InventoryResult>;
   enableCustomerMode: () => void;
   disableCustomerMode: () => void;
-  print: (imagePath: String) => Promise<Object>;
+  print: (imagePath: String) => Promise<object>;
   printPayment: (option: PrintPaymentOption) => void;
   /**
    * Obtains required Android runtime permissions, only needed if targeting API > 25.
@@ -318,8 +292,8 @@ declare const Clover: {
 
   // Constant Methods //////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////
-  isFlex: () => Boolean;
-  isMini: () => Boolean;
+  isFlex: () => boolean;
+  isMini: () => boolean;
   getSpaVersion: () => String;
 
   // Enums/Constants ///////////////////////////////////////////////////////////////////////////////////
@@ -348,7 +322,59 @@ declare const Clover: {
   /**
    * Bridge Emitted Events
    */
-  EVENT: BridgeEvent
-}
+  EVENT: BridgeEvent;
+};
 
+
+const Clover: Clover = {
+  authenticate: (forceValidateToken: Boolean = false, timeout: Number = 10000): Promise<AuthenticationResult> =>
+    RNCloverBridge?.authenticate(forceValidateToken, timeout),
+  getMerchant: (): Promise<MerchantResult> => RNCloverBridge?.getMerchant(),
+  getOrder: (orderId: String): Promise<OrderResult> => RNCloverBridge?.getOrder(orderId),
+  getInventoryItems: (): Promise<InventoryResult> => RNCloverBridge?.getInventoryItems(),
+  enableCustomerMode: (): void => RNCloverBridge?.enableCustomerMode(),
+  disableCustomerMode: (): void => RNCloverBridge?.disableCustomerMode(),
+  print: (imagePath: String): Promise<object> => RNCloverBridge?.print(imagePath),
+  printPayment: (option: PrintPaymentOption): void => RNCloverBridge?.printPayment(option),
+  startAccountChooserIfNeeded: (): Promise<Result> => RNCloverBridge?.startAccountChooserIfNeeded(),
+  registerScanner: (): void => RNCloverBridge?.registerScanner(),
+  unregisterScanner: (): void => RNCloverBridge?.unregisterScanner(),
+
+  // Payment Methods
+  initializePaymentConnector: (raid: String): void => RNCloverBridge?.initializePaymentConnector(raid),
+  sale: (option: SaleOption): Promise<SaleResult> => RNCloverBridge?.sale(option),
+  refundPayment: (option: RefundPaymentOption): Promise<RefundPaymentResult> => RNCloverBridge?.refundPayment(option),
+  manualRefund: (option: ManualRefundOption): Promise<ManualRefundResult> => RNCloverBridge?.manualRefund(option),
+  voidPayment: (option: VoidPaymentOption): Promise<VoidPaymentResult> => RNCloverBridge?.voidPayment(option),
+  voidPaymentRefund: (option: VoidPaymentRefundOption): Promise<VoidPaymentRefundResult> =>
+    RNCloverBridge?.voidPaymentRefund(option),
+  cancelSPA: (): void => RNCloverBridge?.cancelSPA(),
+
+  // Constant Methods
+  isFlex: (): boolean => RNCloverBridge?.isFlex(),
+  isMini: (): boolean => RNCloverBridge?.isMini(),
+  getSpaVersion: (): String => RNCloverBridge?.getSpaVersion(),
+
+  // Enums/Constants
+  HARDWARE_SERIAL_NUMBER: RNCloverBridge?.HARDWARE_SERIAL_NUMBER as String,
+  CARD_ENTRY_METHOD: RNCloverBridge?.CARD_ENTRY_METHOD as CardEntryMethod,
+  DATA_ENTRY_LOCATION: RNCloverBridge?.DATA_ENTRY_LOCATION as DataEntryLocation,
+  VOID_REASON: RNCloverBridge?.VOID_REASON as VoidReason,
+  TIP_MODE: RNCloverBridge?.TIP_MODE as TipMode,
+  PRINT_JOB_FLAG: RNCloverBridge?.PRINT_JOB_FLAG as PrintJobFlag,
+  EVENT: RNCloverBridge?.EVENT as BridgeEvent,
+};
 export default Clover;
+export const useScanner = (callback: (data: String) => void, enabled = true) => {
+  useEffect(() => {
+    if (enabled && RNCloverBridge) {
+      const eventEmitter = new NativeEventEmitter(RNCloverBridge);
+      const listener = eventEmitter.addListener(RNCloverBridge?.EVENT.BARCODE_SCANNER, callback);
+      RNCloverBridge?.registerScanner();
+      return () => {
+        listener.remove();
+        RNCloverBridge?.unregisterScanner();
+      };
+    }
+  }, [enabled, callback]);
+};

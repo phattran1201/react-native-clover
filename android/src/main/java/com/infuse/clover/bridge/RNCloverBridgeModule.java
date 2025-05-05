@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.os.RemoteException;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import java.util.Optional;
 import android.view.WindowManager;
 
 import com.clover.sdk.util.CloverAccount;
@@ -27,6 +28,7 @@ import com.clover.sdk.v1.printer.job.StaticPaymentPrintJob;
 import com.clover.sdk.v1.printer.job.StaticReceiptPrintJob;
 import com.clover.sdk.v3.order.Order;
 import com.clover.sdk.v3.order.OrderConnector;
+import com.clover.sdk.v3.order.OrderType;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.scanner.BarcodeResult;
 import com.facebook.react.bridge.ActivityEventListener;
@@ -198,6 +200,40 @@ class RNCloverBridgeModule extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void getOrder(final String orderId, final Promise promise) {
+        try {
+            OrderConnector orderConnector = new BridgeServiceConnector().getOrderConnector(mContext);
+            Order order = orderConnector.getOrder(orderId);
+
+            WritableMap responseMap = Arguments.createMap();
+            WritableMap orderMap = Arguments.createMap();
+            WritableMap orderTypeMap = Arguments.createMap();
+            OrderType orderType = order.getOrderType();
+
+            orderMap.putString("id", order.getId());
+            orderMap.putString("currency", order.getCurrency());
+            orderMap.putDouble("total", order.getTotal());
+            orderMap.putString("state", order.getState());
+            orderMap.putBoolean("testMode", order.getTestMode());
+            if (orderType != null) {
+                orderTypeMap.putString("id", orderType.getId());
+                orderTypeMap.putString("label", orderType.getLabel());
+                orderMap.putMap("type", orderTypeMap);
+            }
+
+            responseMap.putBoolean("success", true);
+            responseMap.putMap("order", orderMap);
+            promise.resolve(responseMap);
+        } catch (RemoteException | ClientException | ServiceException | BindingException e) {
+            Log.e(TAG, "", e);
+            promise.reject("order_error", e.getMessage());
+        } catch (NoSuchKeyException | UnexpectedNativeTypeException e) {
+            Log.e(TAG, "RN", e);
+            promise.reject("order_error", e.getMessage());
+        }
+    }
+
+    @ReactMethod
     public void printPayment(ReadableMap options) {
         try {
             OrderConnector orderConnector = new BridgeServiceConnector().getOrderConnector(mContext);
@@ -305,4 +341,14 @@ class RNCloverBridgeModule extends ReactContextBaseJavaModule {
         @Override
         public void onHostDestroy() { }
     };
+
+    @ReactMethod
+    public void addListener(String eventName) {
+        // Keep: Required for RN built in Event Emitter Calls.
+    }
+
+    @ReactMethod
+    public void removeListeners(double count) {
+        // Keep: Required for RN built in Event Emitter Calls.
+    }
 }

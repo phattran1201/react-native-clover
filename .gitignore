@@ -34,7 +34,7 @@ project.xcworkspace
 
 # Android/IntelliJ
 #
-build/
+build
 .idea
 .gradle
 local.properties
@@ -64,3 +64,11 @@ buck-out/
 
 # Bundle artifact
 *.jsbundle
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

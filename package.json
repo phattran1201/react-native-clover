@@ -1,30 +1,9 @@
 {
-  "name": "@infuse/react-native-clover",
-  "title": "React Native Clover",
-  "version": "0.0.17",
-  "description": "React Native native module for Clover SDK",
-  "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://bitbucket.org/infuse-team/react-native-clover.git",
-    "baseUrl": "https://bitbucket.org/infuse-team/react-native-clover"
-  },
   "author": {
-    "name": "Xing Tong",
-    "email": "xing@infuse.us"
+    "email": "phattran1201@gmail.com",
+    "name": "Harold"
   },
-  "keywords": [
-    "react-native",
-    "clover"
-  ],
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "license": "MIT",
-  "peerDependencies": {
-    "react": "^16.8.3",
-    "react-native": "^0.59.4 || ^0.60 || ^0.61"
-  },
+  "description": "React Native native module for Clover SDK",
   "devDependencies": {
     "@infuse/eslint-config": "^1.3.0",
     "@react-native-community/eslint-config": "^0.0.5",
@@ -36,5 +15,27 @@
     "eslint-plugin-jsx-a11y": "^6.2.1",
     "eslint-plugin-react": "^7.13.0",
     "typescript": "^3.5.2"
-  }
+  },
+  "keywords": [
+    "clover",
+    "react-native"
+  ],
+  "license": "MIT",
+  "main": "index.ts",
+  "name": "@infuse/react-native-clover",
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*"
+  },
+  "repository": {
+    "baseUrl": "https://bitbucket.org/infuse-team/react-native-clover",
+    "type": "git",
+    "url": "https://bitbucket.org/infuse-team/react-native-clover.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "title": "React Native Clover",
+  "types": "index.d.ts",
+  "version": "0.0.14"
 }

@@ -13,7 +13,8 @@ buildscript {
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 28
+    namespace "com.infuse.clover.bridge"
+    compileSdkVersion 35
 
     defaultConfig {
         minSdkVersion 17
@@ -46,4 +47,3 @@ dependencies {
     implementation 'com.clover.sdk:clover-android-sdk:latest.release'
     implementation 'com.clover.sdk:clover-android-connector-sdk:latest.release'
 }
-  
