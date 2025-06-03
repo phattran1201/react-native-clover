@@ -79,6 +79,7 @@ interface Payment extends Transaction {
   order: ObjectRef;
   tender: Tender;
   cardTransaction: CardTransaction;
+  fullData: string;
 }
 
 interface Refund extends Transaction {
