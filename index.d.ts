@@ -68,7 +68,7 @@ interface CardTransaction {
     authorizingNetworkName: string;
     cvmResult: string;
     applicationIdentifier: string;
-  }
+  };
 }
 
 interface Payment extends Transaction {
@@ -259,7 +259,10 @@ interface InventoryResult extends Result {
  * @param {Function} callback Function called on scan if enabled is true.
  * @param {Boolean} [enabled = false] Whether or not to register the callback listener.
  */
-export const useScanner: (callback: (barcode: String) => void, enabled?: Boolean) => void;
+export const useScanner: (
+  callback: (barcode: String) => void,
+  enabled?: Boolean,
+) => void;
 
 /**
  * Another blah test
@@ -273,7 +276,10 @@ declare const Clover: {
    * @param {Number} [timeout = 10000] Timeout in milliseconds.
    * @returns {Promise} A promise that resolves to an AuthenticationResult.
    */
-  authenticate: (forceValidateToken?: Boolean, timeout?: Number) => Promise<AuthenticationResult>;
+  authenticate: (
+    forceValidateToken?: Boolean,
+    timeout?: Number,
+  ) => Promise<AuthenticationResult>;
   /**
    * Obtains Merchant Info from the Clover service.
    * @returns {Promise} A promise that resolves to a MerchantResult.
@@ -311,7 +317,9 @@ declare const Clover: {
   refundPayment: (option: RefundPaymentOption) => Promise<RefundPaymentResult>;
   manualRefund: (option: ManualRefundOption) => Promise<ManualRefundResult>;
   voidPayment: (option: VoidPaymentOption) => Promise<VoidPaymentResult>;
-  voidPaymentRefund: (option: VoidPaymentRefundOption) => Promise<VoidPaymentRefundResult>;
+  voidPaymentRefund: (
+    option: VoidPaymentRefundOption,
+  ) => Promise<VoidPaymentRefundResult>;
   /**
    * Forces the SPA to close
    */
@@ -349,7 +357,7 @@ declare const Clover: {
   /**
    * Bridge Emitted Events
    */
-  EVENT: BridgeEvent
-}
+  EVENT: BridgeEvent;
+};
 
 export default Clover;

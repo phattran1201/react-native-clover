@@ -1,4 +1,4 @@
-package com.infuse.clover.bridge;
+package com.haroldtran.clover.bridge;
 
 import android.util.Log;
 

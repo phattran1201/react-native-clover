@@ -1,4 +1,4 @@
-package com.infuse.clover.bridge;
+package com.haroldtran.clover.bridge;
 
 import android.accounts.Account;
 import android.accounts.AccountManager;
@@ -44,7 +44,7 @@ import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.UnexpectedNativeTypeException;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
-import com.infuse.clover.bridge.payments.BridgePaymentConnector;
+import com.haroldtran.clover.bridge.payments.BridgePaymentConnector;
 
 import java.io.IOException;
 import java.util.Map;

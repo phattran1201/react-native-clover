@@ -1,4 +1,4 @@
-package com.infuse.clover.bridge;
+package com.haroldtran.clover.bridge;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.JavaScriptModule;

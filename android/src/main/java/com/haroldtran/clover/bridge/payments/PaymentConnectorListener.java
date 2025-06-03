@@ -1,4 +1,4 @@
-package com.infuse.clover.bridge.payments;
+package com.haroldtran.clover.bridge.payments;
 
 import android.util.Log;
 

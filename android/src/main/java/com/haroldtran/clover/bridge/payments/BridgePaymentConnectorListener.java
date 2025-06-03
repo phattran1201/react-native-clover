@@ -1,4 +1,4 @@
-package com.infuse.clover.bridge.payments;
+package com.haroldtran.clover.bridge.payments;
 
 import com.clover.sdk.v3.payments.Credit;
 import com.clover.sdk.v3.payments.Payment;

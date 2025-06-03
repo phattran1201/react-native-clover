@@ -4,7 +4,7 @@ export default {
     platforms: {
       android: {
         packageImportPath:
-          'import com.infuse.clover.bridge.RNCloverBridgePackage;',
+          'import com.haroldtran.clover.bridge.RNCloverBridgePackage;',
         packageInstance: 'new RNCloverBridgePackage()',
       },
       ios: null,

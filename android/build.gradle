@@ -13,14 +13,14 @@ buildscript {
 apply plugin: 'com.android.library'
 
 android {
-    namespace "com.infuse.clover.bridge"
+    namespace "com.haroldtran.clover.bridge"
     compileSdkVersion 35
 
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 26
         versionCode 1
-        versionName "0.0.17"
+        versionName "1.0.1"
     }
     lintOptions {
         abortOnError false

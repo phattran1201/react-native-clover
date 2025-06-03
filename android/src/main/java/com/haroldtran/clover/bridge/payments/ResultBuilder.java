@@ -1,4 +1,4 @@
-package com.infuse.clover.bridge.payments;
+package com.haroldtran.clover.bridge.payments;
 
 import com.clover.sdk.v3.remotepay.BaseResponse;
 import com.facebook.react.bridge.Arguments;

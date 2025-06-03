@@ -1,37 +1,17 @@
 
-# @​infuse/react-native-clover
+# @haroldtran/react-native-clover
 
-React Native native module for the [Clover SDK](https://github.com/clover/clover-android-sdk).
+Clover SDK  [Github](https://github.com/clover/clover-android-sdk) --- [Docs Github](https://clover.github.io/clover-android-sdk/clover-android-sdk/index.html) --- [Dev Docs](https://docs.clover.com/dev/docs/integrate-with-clover-android-sdk)
+
+Maintained and enhanced by [@phattran1201](https://github.com/phattran1201)
 
 ## Getting started
 
-`$ yarn add @infuse/react-native-clover`
-
-### Mostly automatic installation (Pre-0.60)
-
-`$ react-native link @infuse/react-native-clover`
-
-### Manual installation (Pre-0.60)
-
-#### Android
-
-1. Open up `android/app/src/main/java/[...]/MainApplication.java`
-  - Add `import com.infuse.clover.bridge.RNCloverBridgePackage;` to the imports at the top of the file
-  - Add `new RNCloverBridgePackage()` to the list returned by the `getPackages()` method
-2. Append the following lines to `android/settings.gradle`:
-  	```
-  	include ':@infuse_react-native-clover'
-  	project(':@infuse_react-native-clover').projectDir = new File(rootProject.projectDir, 	'../node_modules/@infuse/react-native-clover/android')
-  	```
-3. Insert the following lines inside the dependencies block in `android/app/build.gradle`:
-  	```
-      implementation project(':@infuse_react-native-clover')
-  	```
-
+`$ yarn add @haroldtran/react-native-clover`
 
 ## Usage
 ```javascript
-import Clover, { useScanner } from '@infuse/react-native-clover';
+import Clover, { useScanner } from '@haroldtran/react-native-clover';
 
 // Hook to register and listen to connected Clover scanner, tested on flex and mini gen 2
 useScanner(callback, enabled);
@@ -50,7 +30,7 @@ Clover.disableCustomerMode();
 Clover.print(String imagePath).then(...);
 /**
  * Print Payment Option
- * 
+ *
  * orderId: string - Required
  * paymentId: string - Required
  * flags: array - optional, array of PrintJob flags
@@ -73,7 +53,7 @@ Clover.initializePaymentConnector(String raid);
 
 /**
  * Sale Option
- *  
+ *
  * amount: int - Required
  * externalPaymentId: string - Required, unless generateExternalPaymentId is true
  * externalReferenceId: string - optional, id that is passed to settlement file
@@ -98,7 +78,7 @@ Clover.initializePaymentConnector(String raid);
  */
 /**
  * Sale Result
- * 
+ *
  * success: bool
  * message: string
  * reason: string
@@ -108,7 +88,7 @@ Clover.sale(option).then(result => {});
 
 /**
  * Refund Payment Option
- * 
+ *
  * paymentId: string - required
  * orderId: string - required
  * printReceipt: bool - optional, auto print receipt without selection
@@ -117,7 +97,7 @@ Clover.sale(option).then(result => {});
  */
 /**
  * Refund Payment Result
- * 
+ *
  * success: bool
  * message: string
  * reason: string
@@ -127,14 +107,14 @@ Clover.refundPayment(option).then(result => {});
 
 /**
  * Manual Refund Option
- * 
+ *
  * amount: int - required
  * externalPaymentId: string - required
  * printReceipt: bool - optional, auto print receipt without selection
  */
 /**
  * Manual Refund Result
- * 
+ *
  * success: bool
  * message: string
  * reason: string
@@ -144,7 +124,7 @@ Clover.manualRefund(option).then(result => {});
 
 /**
  * Void Payment Option
- * 
+ *
  * paymentId: string, required
  * orderId: string, required
  * voidReason: string, required, see VOID_REASON
@@ -152,7 +132,7 @@ Clover.manualRefund(option).then(result => {});
  */
 /**
  * Void Payment Result
- * 
+ *
  * success: bool
  * message: string
  * reason: string
@@ -180,7 +160,29 @@ Clover.voidPayment(option).then(result => {});
 * [PRINT_JOB_FLAG](https://clover.github.io/clover-android-sdk/com/clover/sdk/v1/printer/job/PrintJob.html)
 * `EVENT`
     * `BARCODE_SCANNER`
-  
+
+## Contributors
+
+<table>
+    <tbody>
+        <tr>
+            <td align="center">
+                <a href="https://github.com/phattran1201">
+                    <img src="https://avatars.githubusercontent.com/u/36856455" width="100;" alt="phattran1201"/>
+                    <br />
+                    <sub><b>Harold Tran</b></sub>
+                </a>
+            </td>
+            <td align="center">
+                <a href="https://bitbucket.org/infuse-team/">
+                    <img src="https://avatars.githubusercontent.com/u/15880176" width="100;" alt="infuse-team"/>
+                    <br />
+                    <sub><b>Infuse Team</b></sub>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>
 ## Troubleshooting
 
 * If you aren't getting anything resolved when calling `getMerchant` try these following solutions:

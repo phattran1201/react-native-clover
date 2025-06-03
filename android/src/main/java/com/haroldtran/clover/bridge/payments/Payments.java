@@ -1,4 +1,4 @@
-package com.infuse.clover.bridge.payments;
+package com.haroldtran.clover.bridge.payments;
 
 import com.clover.sdk.v3.base.Reference;
 import com.clover.sdk.v3.base.Tender;
