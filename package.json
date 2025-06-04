@@ -39,11 +39,23 @@
     "node_modules/"
   ],
   "files": [
-    "!**/__fixtures__",
-    "!**/__mocks__",
-    "!**/__tests__",
-    "lib",
-    "src"
+    "android",
+    "!android/build",
+    "ios",
+    "!ios/build",
+    "dist",
+    ".eslintrc",
+    ".gitignore",
+    ".prettierrc",
+    "CHANGELOG.md",
+    "index.d.ts",
+    "index.ts",
+    "lefthook.yml",
+    "LICENSE",
+    "package.json",
+    "react-native.config.mjs",
+    "README.md",
+    "tsconfig.json"
   ],
   "keywords": [
     "clover",
@@ -51,16 +63,17 @@
     "react-native"
   ],
   "license": "MIT",
-  "main": "index",
+  "main": "index.ts",
   "name": "@haroldtran/react-native-clover",
   "peerDependencies": {
     "react": ">=16.8",
     "react-native": ">=0.63"
   },
   "publishConfig": {
+    "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "react-native": "index",
+  "react-native": "index.ts",
   "release-it": {
     "git": {
       "commitMessage": "build: release ${version}",
@@ -93,7 +106,7 @@
     "test": "jest",
     "typecheck": "tsc --noEmit"
   },
-  "source": "index",
+  "source": "index.ts",
   "title": "React Native Clover",
   "types": "index.d.ts",
   "version": "1.0.1"
