@@ -1,29 +1,85 @@
 {
   "author": "Harold Tran <phattran1201@gmail.com>",
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "dependencies": {
+    "lodash": "^4.17.21"
+  },
   "description": "React Native native module for Clover SDK",
   "devDependencies": {
+    "@babel/core": "^7.27.4",
+    "@commitlint/config-conventional": "^19.8.1",
+    "@evilmartians/lefthook": "^1.11.13",
     "@react-native-community/eslint-config": "^3.2.0",
+    "@release-it/conventional-changelog": "^10.0.1",
+    "@types/lodash": "^4.14.191",
+    "@types/node": "^22.15.29",
     "@types/react": "^19.1.6",
-    "@types/react-native": "^0.73.0",
+    "@types/react-native": "*",
+    "@typescript-eslint/eslint-plugin": "^8.33.1",
+    "@typescript-eslint/parser": "^8.33.1",
     "babel-eslint": "^10.1.0",
-    "eslint": "^9.28.0",
+    "commitlint": "^19.8.1",
+    "eslint": "^8.0.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.31.0",
     "eslint-plugin-jest": "^28.12.0",
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^5.2.0",
+    "lefthook": "^1.11.13",
+    "prettier": "^3.5.3",
+    "release-it": "^19.0.3",
     "typescript": "^5.8.3"
   },
+  "eslintIgnore": [
+    "node_modules/"
+  ],
+  "files": [
+    "!**/__fixtures__",
+    "!**/__mocks__",
+    "!**/__tests__",
+    "lib",
+    "src"
+  ],
   "keywords": [
     "clover",
     "pos",
     "react-native"
   ],
   "license": "MIT",
-  "main": "index.ts",
+  "main": "index",
   "name": "@haroldtran/react-native-clover",
   "peerDependencies": {
+    "react": ">=16.8",
     "react-native": ">=0.63"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "react-native": "index",
+  "release-it": {
+    "git": {
+      "commitMessage": "build: release ${version}",
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true
+    },
+    "npm": {
+      "publish": true
+    },
+    "plugins": {
+      "@release-it/conventional-changelog": {
+        "preset": {
+          "name": "angular"
+        },
+        "infile": "CHANGELOG.md"
+      }
+    }
   },
   "repository": {
     "baseUrl": "https://github.com/phattran1201/react-native-clover",
@@ -32,8 +88,12 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint \"**/*.{js,ts,tsx}\"",
+    "release": "release-it",
+    "test": "jest",
+    "typecheck": "tsc --noEmit"
   },
+  "source": "index",
   "title": "React Native Clover",
   "types": "index.d.ts",
   "version": "1.0.1"

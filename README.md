@@ -5,6 +5,13 @@ Clover SDK  [Github](https://github.com/clover/clover-android-sdk) --- [Docs Git
 
 Maintained and enhanced by [@phattran1201](https://github.com/phattran1201)
 
+
+<div align="center">
+
+[![npm][npm]][npm-URL] [![Android][Android]][Android-URL] [![Kotlin][Kotlin]][Kotlin-URL] [![React-Native][React-Native]][React-Native-URL]
+
+</div>
+
 ## Getting started
 
 `$ yarn add @haroldtran/react-native-clover`
@@ -183,9 +190,28 @@ Clover.voidPayment(option).then(result => {});
         </tr>
     </tbody>
 </table>
+
 ## Troubleshooting
 
 * If you aren't getting anything resolved when calling `getMerchant` try these following solutions:
   - Make sure that you are running this in an app that is registered on Clover.
   - Make sure you have account permission before running `getMerchant`. This can be an issue on Android 8.0+. See `startAccountChooserIfNeeded`.
   - If you've just uninstalled and reinstalled the app, it can take a while for the device to refresh the app's access. Restart the clover device to force a refresh.
+
+
+<!-- Badge for README -->
+[npm]: https://img.shields.io/npm/v/%40haroldtran%2Freact-native-clover?&style=for-the-badge&logo=npm&logoColor=red
+[npm-URL]: https://www.npmjs.com/package/@haroldtran/react-native-clover
+[iOS]: https://img.shields.io/badge/iOS-000000?style=for-the-badge&logo=ios&logoColor=white
+[iOS-URL]: https://www.apple.com/ios
+[Android]: https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white
+[Android-URL]: https://www.android.com/
+[React-Native]: https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-Native-URL]: https://reactnative.dev/
+[React-Native]: https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
+[React-Native-URL]: https://reactnative.dev/
+[Swift]: https://img.shields.io/badge/Swift-FA7343?style=for-the-badge&logo=swift&logoColor=white
+[Swift-URL]: https://developer.apple.com/swift/
+[Kotlin]: https://img.shields.io/badge/Kotlin-0095D5?&style=for-the-badge&logo=kotlin&logoColor=white
+[Kotlin-URL]: https://kotlinlang.org/
+[Logo]: https://img.shields.io/badge/React_Native_Multiple_Image_Picker-DF78C3?style=for-the-badge
