@@ -1,47 +1,187 @@
-interface ObjectRef {
+export interface CloverReference {
+    id?: string;
+    name?: string;
+}
+export interface CloverTender {
+    id: string;
+    editable?: boolean;
+    label?: string;
+    opensCashDrawer?: boolean;
+    supportsTipping?: boolean;
+    enabled?: boolean;
+    visible?: boolean;
+    instructions?: string;
+}
+export interface CloverCardTransaction {
+    cardType?: string;
+    entryType?: string;
+    first6?: string;
+    last4?: string;
+    authCode?: string;
+    cardHolderName?: string;
+    token?: string;
+}
+export interface CloverServiceChargeAmount {
+    name?: string;
+    amount?: number;
+}
+export interface CloverRefund {
+    id: string;
+    amount?: number;
+    reason?: string;
+    createdTime?: number;
+}
+export interface CloverAdditionalChargeAmount {
+    name?: string;
+    amount?: number;
+}
+export interface CloverPaymentTaxRate {
+    name?: string;
+    rate?: number;
+    amount?: number;
+}
+export interface CloverLineItemPayment {
+    id: string;
+    name?: string;
+    amount?: number;
+}
+export interface CloverVoidReasonDetails {
+    code?: string;
+    description?: string;
+}
+export interface CloverTransactionSettings {
+    suppressOnScreenTips?: boolean;
+}
+export interface CloverAppTracking {
+    packageName?: string;
+    versionCode?: string;
+}
+export interface CloverCashAdvanceExtra {
+    amount?: number;
+}
+export interface CloverTransactionInfo {
+    transactionId?: string;
+    approvalCode?: string;
+}
+export interface CloverSignatureDisclaimer {
+    text?: string;
+}
+export interface CloverPurchaseCardL2 {
+    taxAmount?: number;
+}
+export interface CloverPurchaseCardL3 {
+    customerReferenceId?: string;
+}
+export interface CloverOceanGatewayInfo {
+    gatewayId?: string;
+}
+export interface CloverTerminalManagementComponent {
+    name?: string;
+    version?: string;
+}
+export interface CloverPaymentEmiInfo {
+    bank?: string;
+    tenureMonths?: number;
+}
+export interface CloverCloseoutBatchInfo {
+    batchId?: string;
+    closedTime?: number;
+}
+export interface CloverFeatureMetrics {
+    accessibilityModeUsed?: boolean;
+}
+export interface CloverPayment {
+    id: string;
+    order?: CloverReference;
+    device?: CloverReference;
+    tender?: CloverTender;
+    amount: number;
+    tipAmount?: number;
+    taxAmount?: number;
+    cashbackAmount?: number;
+    cashTendered?: number;
+    externalPaymentId?: string;
+    externalReferenceId?: string;
+    employee?: CloverReference;
+    createdTime?: number;
+    clientCreatedTime?: number;
+    gatewayProcessingTime?: number;
+    modifiedTime?: number;
+    offline?: boolean;
+    result?: string;
+    cardTransaction?: CloverCardTransaction;
+    serviceCharge?: CloverServiceChargeAmount;
+    attributes?: Record<string, string>;
+    additionalCharges?: CloverAdditionalChargeAmount[];
+    taxRates?: CloverPaymentTaxRate[];
+    refunds?: CloverRefund[];
+    note?: string;
+    lineItemPayments?: CloverLineItemPayment[];
+    authorization?: CloverReference;
+    voidPaymentRef?: CloverReference;
+    voidReason?: string;
+    voidReasonDetails?: CloverVoidReasonDetails;
+    dccInfo?: any;
+    transactionSettings?: CloverTransactionSettings;
+    germanInfo?: any;
+    appTracking?: CloverAppTracking;
+    cashAdvanceExtra?: CloverCashAdvanceExtra;
+    transactionInfo?: CloverTransactionInfo;
+    signatureDisclaimer?: CloverSignatureDisclaimer;
+    merchant?: CloverReference;
+    increments?: any[];
+    purchaseCardL2?: CloverPurchaseCardL2;
+    purchaseCardL3?: CloverPurchaseCardL3;
+    oceanGatewayInfo?: CloverOceanGatewayInfo;
+    terminalManagementComponents?: CloverTerminalManagementComponent[];
+    emiInfo?: CloverPaymentEmiInfo;
+    closeoutBatchInfo?: CloverCloseoutBatchInfo;
+    featureMetrics?: CloverFeatureMetrics;
+}
+export interface ObjectRef {
     id: string;
 }
-interface BridgeEvent {
+export interface BridgeEvent {
     BARCODE_SCANNER: string;
 }
-interface TipSuggestion {
+export interface TipSuggestion {
     name: string;
     percentage: number;
 }
-interface Result {
+export interface Result {
     success: boolean;
 }
-interface Tender extends ObjectRef {
+export interface Tender extends ObjectRef {
     label: string;
 }
-interface AuthenticationResult extends Result {
+export interface AuthenticationResult extends Result {
     errorMessage: string;
     authToken: string;
 }
-interface MerchantResult extends Result {
+export interface MerchantResult extends Result {
     statusMessage?: string;
     merchant: Merchant;
 }
-interface Merchant extends ObjectRef {
+export interface Merchant extends ObjectRef {
     name: string;
     email: string;
     location: MerchantLocation;
 }
-interface MerchantLocation {
+export interface MerchantLocation {
     country: string;
     city: string;
     region: string;
 }
-interface TransactionResult extends Result {
+export interface TransactionResult extends Result {
     reason?: string;
     message?: string;
 }
-interface Transaction {
+export interface Transaction {
     id: string;
     amount: number;
     createdTime: string;
 }
-interface CardTransaction {
+export interface CardTransaction {
     authCode: string;
     cardHolderName: string;
     first6: string;
@@ -59,7 +199,7 @@ interface CardTransaction {
         applicationIdentifier: string;
     };
 }
-interface Payment extends Transaction {
+export interface Payment extends Transaction {
     externalPaymentId: string;
     externalReferenceId: string;
     offline: boolean;
@@ -67,16 +207,16 @@ interface Payment extends Transaction {
     order: ObjectRef;
     tender: Tender;
     cardTransaction: CardTransaction;
-    fullData: string;
+    payment: CloverPayment;
 }
-interface Refund extends Transaction {
+export interface Refund extends Transaction {
     payment: ObjectRef;
 }
-interface Credit extends Transaction {
+export interface Credit extends Transaction {
     order: ObjectRef;
     tender: Tender;
 }
-interface CardEntryMethod {
+export interface CardEntryMethod {
     ICC_CONTACT: number;
     MAG_STRIPE: number;
     MANUAL: number;
@@ -88,12 +228,12 @@ interface CardEntryMethod {
      */
     DEFAULT: number;
 }
-interface DataEntryLocation {
+export interface DataEntryLocation {
     NONE: string;
     ON_PAPER: string;
     ON_SCREEN: string;
 }
-interface VoidReason {
+export interface VoidReason {
     AUTH_CLOSED_NEW_CARD: string;
     DEVELOPER_PAY_PARTIAL_AUTH: string;
     DEVELOPER_PAY_TIP_ADJUST_FAILED: string;
@@ -109,12 +249,12 @@ interface VoidReason {
     USER_CUSTOMER_CANCEL: string;
     USER_GIFTCARD_LOAD_CANCEL: string;
 }
-interface TipMode {
+export interface TipMode {
     NO_TIP: string;
     TIP_PROVIDED: string;
     ON_SCREEN_BEFORE_PAYMENT: string;
 }
-interface PrintJobFlag {
+export interface PrintJobFlag {
     FLAG_BILL: number;
     FLAG_CUSTOMER: number;
     FLAG_FORCE_SIGNATURE: number;
@@ -124,7 +264,7 @@ interface PrintJobFlag {
     FLAG_REFUND: number;
     FLAG_REPRINT: number;
 }
-interface SaleOption {
+export interface SaleOption {
     amount: number;
     externalPaymentId?: string;
     generateExternalPaymentId?: boolean;
@@ -143,20 +283,20 @@ interface SaleOption {
     tipSuggestions?: Array<TipSuggestion>;
     printReceipt?: boolean;
 }
-interface SaleResult extends TransactionResult {
+export interface SaleResult extends TransactionResult {
     payment: Payment;
 }
-interface RefundPaymentOption {
+export interface RefundPaymentOption {
     paymentId: string;
     orderId: string;
     amount?: number;
     setFullRefund?: boolean;
     printReceipt?: boolean;
 }
-interface RefundPaymentResult extends TransactionResult {
+export interface RefundPaymentResult extends TransactionResult {
     refund: Refund;
 }
-interface ManualRefundOption {
+export interface ManualRefundOption {
     amount: number;
     externalPaymentId?: string;
     generateExternalPaymentId?: boolean;
@@ -164,32 +304,32 @@ interface ManualRefundOption {
     disableRestartTransactionOnFail?: boolean;
     printReceipt?: boolean;
 }
-interface ManualRefundResult extends TransactionResult {
+export interface ManualRefundResult extends TransactionResult {
     credit: Credit;
 }
-interface VoidPaymentOption {
+export interface VoidPaymentOption {
     paymentId: string;
     orderId: string;
     voidReason: string;
     printReceipt?: boolean;
 }
-interface VoidPaymentResult extends TransactionResult {
+export interface VoidPaymentResult extends TransactionResult {
     paymentId: string;
 }
-interface VoidPaymentRefundOption {
+export interface VoidPaymentRefundOption {
     paymentId: string;
     orderId: string;
 }
-interface VoidPaymentRefundResult extends TransactionResult {
+export interface VoidPaymentRefundResult extends TransactionResult {
     paymentId: string;
     refundId: string;
 }
-interface PrintPaymentOption {
+export interface PrintPaymentOption {
     orderId: string;
     paymentId: string;
     flags?: Array<number>;
 }
-interface Inventory extends ObjectRef {
+export interface Inventory extends ObjectRef {
     name: string;
     quantity: number;
     price: number;
@@ -200,7 +340,7 @@ interface Inventory extends ObjectRef {
     taxName: string;
     taxable: boolean;
 }
-interface Order extends ObjectRef {
+export interface Order extends ObjectRef {
     currency: string;
     total: number;
     state: string;
@@ -210,17 +350,17 @@ interface Order extends ObjectRef {
         label: string;
     };
 }
-interface OrderResult extends Result {
+export interface OrderResult extends Result {
     order: Order;
 }
-interface InventoryResult extends Result {
+export interface InventoryResult extends Result {
     statusMessage?: string;
     inventory: Inventory;
 }
 /**
  * Another blah test
  */
-interface IClover {
+export interface IClover {
     /**
      * Obtains authentication data from the Clover service.
      * @param {boolean} [forceValidateToken = false] Flag to validate against API, increases latency, use only when needed.
