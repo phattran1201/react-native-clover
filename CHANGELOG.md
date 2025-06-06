@@ -1,5 +1,7 @@
 # Changelog
 
+## <small>1.1.2 (2025-06-06)</small>
+
 # [1.1.0](https://github.com/phattran1201/react-native-clover/compare/v0.0.12...v1.1.0) (2025-06-04)
 
 

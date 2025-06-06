@@ -6,11 +6,11 @@ import com.clover.sdk.v3.payments.CardTransaction;
 import com.clover.sdk.v3.payments.Credit;
 import com.clover.sdk.v3.payments.Payment;
 import com.clover.sdk.v3.payments.Refund;
+
 import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableMap;
-
 import java.util.Map;
-import org.json.JSONObject;
+
 
 class Payments {
     // Bridge constants for Clover per-transaction settings.
@@ -38,7 +38,7 @@ class Payments {
 
     static WritableMap mapPayment(Payment payment) {
         WritableMap map = Arguments.createMap();
-        map.putString("fullData", String.valueOf(payment.getJSONObject()));
+        map.putMap("payment", Utils.convertJsonToMap(payment.getJSONObject()));
         map.putString("id", payment.getId());
         map.putString("externalPaymentId", payment.getExternalPaymentId());
         map.putString("externalReferenceId", payment.getExternalReferenceId());

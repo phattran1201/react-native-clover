@@ -74,26 +74,6 @@
     "registry": "https://registry.npmjs.org/"
   },
   "react-native": "index.ts",
-  "release-it": {
-    "git": {
-      "commitMessage": "build: release ${version}",
-      "tagName": "v${version}"
-    },
-    "github": {
-      "release": true
-    },
-    "npm": {
-      "publish": true
-    },
-    "plugins": {
-      "@release-it/conventional-changelog": {
-        "preset": {
-          "name": "angular"
-        },
-        "infile": "CHANGELOG.md"
-      }
-    }
-  },
   "repository": {
     "baseUrl": "https://github.com/phattran1201/react-native-clover",
     "type": "git",
@@ -109,5 +89,5 @@
   "source": "index.ts",
   "title": "React Native Clover",
   "types": "index.d.ts",
-  "version": "1.1.0"
+  "version": "1.1.2"
 }
